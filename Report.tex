@@ -20,7 +20,7 @@
 {\normalfont\huge\bfseries}{\ \ \thechapter}{20pt}{\Huge}
 
 \usepackage[parfill]{parskip}
-\author{Tom Blount\\José Cubero\\Thomas Grainger\\Chris Orchard}
+\author{Tom Blount}
 \date{January 21, 2013}
 \title{On the Implementation of Authentication Mechanisms for Mobile Devices over Wireless Networks}
 
@@ -29,10 +29,14 @@
 
 \tableofcontents
 \newpage
-%\begin{abstract}
-%This report gives an overview of the 802.1X specification and describes the design and implementation undertaking in this investigation. The report then covers an extension to this project, the 802.11r specification, used for fast switching between access points, and determines its overall feasibility.
-%\end{abstract}
+\paragraph{Abstract}
+This report gives an overview of the 802.1X specification and describes the design and implementation undertaking in this investigation. The report then covers an extension to this project, the 802.11r specification, used for fast switching between access points, and determines its overall feasibility.
 
+\paragraph{Acknowledgements}
+Thanks of course go to the other members of my group, José Cubero, Thomas Grainger and Chris Orchard.
+Thanks also go to the Southampton University Wireless Society (SUWS) for lending us two wireless nodes.
+
+\newpage
 \section{Introduction}
 
 \subsection{Brief}
@@ -94,31 +98,29 @@ The next stage was to implement the supplicant and authenticator in reality (see
 
 \subsubsection{Server}
 \label{sec:implementation;sub:components;sub:server}
-Implementing the authentication server made up the bulk of this author's individual contribution. The consisted of researching the appropriate server-side software, installing it on a virtual machine hosted by ECS and configuring it correctly. 
+Implementing (as well as debugging and testing) the authentication server made up the bulk of this author's individual contribution. The consisted of researching the appropriate server-side software, installing it on a virtual machine hosted by ECS and configuring it correctly. 
 
-While there are many variants of RADIUS software, we chose \texttt{freeradius} due to its open-source nature and popularity, making it ideal for use in this project. The decision was made to install a RPM package that had been pre-built in a controlled environment. This was done using the \texttt{yum} command:
-\begin{verbatim}
-sudo yum install freeradius
-\end{verbatim}
+While there are many variants of RADIUS software, we chose \texttt{freeradius} due to its open-source nature and popularity, making it ideal for use in this project. The decision was made to install a RPM package that had been pre-built in a controlled environment.
+
 The next stage was to generate the necessary certificates that are used to identify the server. These can be edited and made from within \texttt{raddb/certs/}. Next, the configuration files must be updated with the appropriate system details. The essential items of configuration are determining the credentials of the users who will be accessing the system, and the clients they will use. Example code from these key files can be found in appendix \ref{sec:Code;sub:radius}.
 
 \subsubsection{Access point}
 \label{sec:implementation;sub:components;sub:accesspoint}
-We received on loan from the Southampton Open Wireless Network\footnote{http://www.sown.org.uk} two ``Meraki Mini'' access points to use throughout the course of this project. The Meraki Mini has a 180MHz CPU and a 60mW 802.11b/g radio.
+We received on loan from the Southampton University Wireless Society (SUWS)\footnote{http://www.sown.org.uk} two ``Meraki Mini'' access points to use throughout the course of this project. The Meraki Mini has a 180MHz CPU and a 60mW 802.11b/g radio.
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{./images/meraki-mini.jpg}
 \caption{A Meraki Mini access point, similar to the ones used in this project \cite{imagemeraki}}
 \end{figure}
 
-However, instead of running the default Meraki firmware, the nodes were re-flashed to use \texttt{OpenWrt}\footnote{https://openwrt.org/}, a distribution of Linux, designed for use on embedded devices. This was used to build and run \texttt{hostapd} authenticator software (which runs in user space, in the background).
+However, instead of running the default Meraki firmware, the nodes were re-flashed to use \texttt{OpenWrt}\footnote{https://openwrt.org/}, a distribution of Linux, designed for use on embedded devices (these nodes were purchased before Meraki changed their EULA to prohibit such). This was used to build and run \texttt{hostapd} authenticator software (which runs in user space, in the background).
 
 \subsubsection{Client}
 \label{sec:implementation;sub:components;sub:client}
-The client runs the supplicant software \texttt{wpa\_supplicant}. This must have the same credentials as those preprogrammed on the server and must be configured with the shared secret key.
+The client runs the supplicant software \texttt{wpa\_supplicant}. This must have the same credentials as those preprogrammed on the server and must be configured with the appropriate username and password combination. Some supplicant software includes a GUI allowing users to input these details at run time, but we chose to preconfigure ours - an example config file is provided in appendix \ref{sec:Code;sub:supplicant}.
 
 \subsection{Challenges}
-Throughout implementation we faced, and overcame, a number of challenges. Certainly one of the most arduous was attempting to configure the embedded devices with bleeding-edge software. Another issue was that, as the authentication server was running as a virtual machine within ECS, the connection needed to be routed through a VPN (in this instance, one of our personal computers).
+Throughout implementation we faced, and overcame, a number of challenges. Certainly one of the most arduous was attempting to configure the embedded devices with bleeding-edge software, as almost all programs needed to be cross-compiled. Another issue was that, as the authentication server was running as a virtual machine within ECS, the connection needed to be routed through a VPN (in this instance, one of our personal computers).
 
 \newpage
 \section{802.11r}
@@ -138,12 +140,11 @@ While this is, of course, desirable for any mobile network it is particularly im
 \subsection{Testing}
 Each of the implemented sections were tested incrementally, using a command line tool bundled with \texttt{wpa\_supplicant} called \texttt{eapol\_test}. This allows simulated EAP messages to be sent to a server, based on settings in a configuration file (specifying the EAP method, username, password, etc.) and the responses to be examined in detail. The output from testing the server can be seen in appendix \ref{sec:testing-output;sub:simulation}.
 
-
 \subsection{Conclusions}
 Overall, the project was a resounding success. We managed to implement not only a simulated authentication service, but a live demonstration with multiple hardware components. Although the 802.11r component was not fully implemented, the research into the protocol raised some interesting ideas for future work.
 
 \subsection{Recommendations for future work}
-The clear next stage for further development would be to fully implement an instance of 802.11r, and demonstrate the possible fast switching between access points. Ideally, a comparison could be drawn between the time taken using fast BSS and the transfers shown in this project.
+The clear next stage for further development would be to fully implement an instance of 802.11r, and demonstrate the possible fast switching between access points. Ideally, a comparison could be drawn between the time taken using fast BSS and the transfers shown in this project, potentially with a practical demonstration of running a VOIP call during the transfer.
 
 \newpage
 \begin{thebibliography}{99}

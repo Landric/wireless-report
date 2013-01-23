@@ -102,7 +102,7 @@ Implementing (as well as debugging and testing) the authentication server made u
 
 While there are many variants of RADIUS software, we chose \texttt{freeradius} due to its open-source nature and popularity, making it ideal for use in this project. The decision was made to install a RPM package that had been pre-built in a controlled environment.
 
-Next, the configuration files must be updated with the appropriate system details. The essential items of configuration are determining the credentials of the users who will be accessing the system (their username, password and, crucially, whether they should be allowed or rejected), and the clients they will use (the IP address for example). In this case a user \texttt{TomB} was set to be authorised when using the password \texttt{TomBsPassword}. A second user, \texttt{TomG} was set to be always refused access (to demonstrate revoked credentials). The next stage was to generate the necessary certificates that were used to identify the server (using EAP-TTLS). These were edited and made from within \texttt{raddb/certs/}. Finally, the appropriate EAP method needed to be configured, and pointed towards the generated certificates.
+Next, the configuration files must be updated with the appropriate system details. The essential items of configuration are determining the credentials of the users who will be accessing the system (their username, password and, crucially, whether they should be allowed or rejected), and the clients they will use (the IP address for example). In this case a user \texttt{TomB} was set to be authorised when using the password \texttt{TomBsPassword}. A second user, \texttt{TomG} was set to be always refused access (to demonstrate revoked credentials - see section \ref{sec:evaluation;sub:testing}). The next stage was to generate the necessary certificates that were used to identify the server (using EAP-TTLS). These were edited and made from within \texttt{raddb/certs/}. Finally, the appropriate EAP method needed to be configured, and pointed towards the generated certificates.
 
 Example code from these key files can be found in appendix \ref{sec:Code;sub:radius}.
 
@@ -141,11 +141,12 @@ Unfortunately however, during testing we could not get the fast transition to oc
 \section{Evaluation}
 
 \subsection{Testing}
+\label{sec:evaluation;sub:testing}
 Each of the implemented sections were tested incrementally, using a command line tool bundled with \texttt{wpa\_supplicant} called \texttt{eapol\_test}. This allows simulated EAP messages to be sent to a server, based on settings in a configuration file (specifying the EAP method, username, password, etc.) and the responses to be examined in detail. 
 
-The output from testing the server (and the simulated authenticator and supplicant) can be seen in appendix \ref{sec:testing-output;sub:simulation} - the server is shown on the left (in debug mode, to produce the most detailed output) and the \texttt{eapol\_test} on the right. 
+The output from testing the server (and the simulated authenticator and supplicant) can be seen in appendix \ref{sec:testing-output;sub:simulation} - the server is shown on the left (in debug mode, to produce the most detailed output) and the \texttt{eapol\_test} on the right. Initially a valid user attempted to connect and was successfully authenticated. Next, a valid user with revoked attempted to connect and was refused access. Other tests of this nature (such as a valid user, with incorrect credentials) were performed and passed.
 
-Once the authenticator and supplicant were implemented fully, these were also tested (and debugged as necessary) with \texttt{eapol\_test}, They were then run in a live environment - the output is shown in appendix \ref{sec:testing-output;sub:supplicant}.
+Once the authenticator and supplicant were implemented fully, these were also tested (and debugged as necessary) with \texttt{eapol\_test}. They were then run in a live environment repeating the above tests - a sample of the output is shown in appendix \ref{sec:testing-output;sub:supplicant}.
 
 \subsection{Conclusions}
 Overall, the project was a resounding success. We managed to implement not only a simulated authentication service, but a live demonstration of an efficient system with multiple hardware components. Although the proposed 802.11r extension was not fully implemented, the research into the protocol raised some interesting ideas for future work.

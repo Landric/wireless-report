@@ -131,7 +131,7 @@ Developed in 2008, the 802.11r specification amends the 802.11 ``WiFi'' specific
 While this is, of course, desirable for any mobile network it is particularly important given the recent proliferation of internet-capable smart phones and Voice Over IP (VOIP) technology.
 
 \subsection{Implementation}
-Implementing this protocol involved recompiling both the authenticator (\texttt{hostapd}) and supplicant (\texttt{wpa\_supplicant}) to support 802.11r, and configuring them accordingly. The utility \texttt{wpa\_cli} could then be used to interact with the \texttt{wpa\_supplicant} program and force the supplicant to roam to a new access point.
+Implementing this protocol involved recompiling both the authenticator (\texttt{hostapd}) and supplicant (\texttt{wpa\_supplicant}) to support 802.11r, and configuring them accordingly. The utility \texttt{wpa\_cli} could then be used to interact with \texttt{wpa\_supplicant} and force the supplicant to roam to a new access point.
 
 Unfortunately however, during testing we could not get the fast transition to occur. As can be seen in appendix \ref{sec:testing-output;sub:80211r} (particularly the line \texttt{FT: Invalid group cipher (0)}) the program enters a state it should not be possible to reach. This was possibly caused by bugs introduced by the bleeding-edge software used.
 
@@ -146,7 +146,7 @@ The output from testing the server (and the simulated authenticator and supplica
 Once the authenticator and supplicant were implemented fully, these were also tested (and debugged as necessary) with \texttt{eapol\_test}, They were then run in a live environment - the output is shown in appendix \ref{sec:testing-output;sub:supplicant}.
 
 \subsection{Conclusions}
-Overall, the project was a resounding success. We managed to implement not only a simulated authentication service, but a live demonstration with multiple hardware components. Although the 802.11r component was not fully implemented, the research into the protocol raised some interesting ideas for future work.
+Overall, the project was a resounding success. We managed to implement not only a simulated authentication service, but a live demonstration of an efficient system with multiple hardware components. Although the proposed 802.11r extension was not fully implemented, the research into the protocol raised some interesting ideas for future work.
 
 \subsection{Recommendations for future work}
 The clear next stage for further development would be to fully implement an instance of 802.11r, and demonstrate the possible fast switching between access points. Ideally, a comparison could be drawn between the time taken using fast BSS and the transfers shown in this project, potentially with a practical demonstration of running a VOIP call during the transfer.

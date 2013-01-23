@@ -126,13 +126,14 @@ Throughout implementation we faced, and overcame, a number of challenges. Certai
 \section{802.11r}
 
 \subsection{Overview}
-Developed in 2008, the 802.11r specification amends the 802.11 ``WiFi'' specification to allow fast basic service set transitions -- in other words, it is designed to allow a mobile device to be quickly and securely transferred between access points. To achieve this, instead of renegotiating a new session and key after every transfer, part of the key is cached to allow further communication after transferring access points for some amount of time.
+Developed in 2008, the 802.11r specification amends the 802.11 ``WiFi'' specification to allow fast Basic Service Set transitions (FTs) -- in other words, it is designed to allow a mobile device to be quickly and securely transferred between access points. To achieve this, instead of renegotiating a new session and key after every transfer, part of the key is cached to allow further communication after transferring access points for some amount of time.
 
 While this is, of course, desirable for any mobile network it is particularly important given the recent proliferation of internet-capable smart phones and Voice Over IP (VOIP) technology.
 
-\subsection{Investigation}
-
 \subsection{Implementation}
+Implementing this protocol involved recompiling both the authenticator (\texttt{hostapd}) and supplicant (\texttt{wpa\_supplicant}) to support 802.11r, and configuring them accordingly. The utility \texttt{wpa\_cli} could then be used to interact with the \texttt{wpa\_supplicant} program and force the supplicant to roam to a new access point.
+
+Unfortunately however, during testing we could not get the fast transition to occur. As can be seen in appendix \ref{sec:testing-output;sub:80211r} (particularly the line \texttt{FT: Invalid group cipher (0)}) the program enters a state it should not be possible to reach. This was possibly caused by bugs introduced by the bleeding-edge software used.
 
 \newpage
 \section{Evaluation}

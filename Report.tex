@@ -75,6 +75,8 @@ Despite there being alternative protocols for server/authenticator communication
 
 The RADIUS protocol provides centralized AAA: Authentication, the ability to verify a user's identity via their credentials (e.g. a username and password); Authorisation, the ability to define different levels of access to users with different (predetermined) levels of clearance; and Accounting, the ability to track the access to and usage of these resources over periods of time and space.
 
+A RADIUS server can also query a database back-end storing credentials, or even proxy requests to a remote RADIUS server - this can be used when roaming, on the same credentials, nationally or even internationally (using eduroam, for example).
+
 \subsubsection{Authenticator}
 The authenticator is usually a network switch or, in the case of wireless networks, an access point. Its role is to prevent unauthorised access to the private network ``behind'' it until a client is authenticated. To facilitate this, the authenticator relays messages from the client to the authentication server.
 

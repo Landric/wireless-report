@@ -135,7 +135,7 @@ While this is, of course, desirable for any mobile network it is particularly im
 \subsection{Implementation}
 Implementing this protocol involved recompiling both the authenticator (\texttt{hostapd}) and supplicant (\texttt{wpa\_supplicant}) to support 802.11r, and configuring them accordingly. The utility \texttt{wpa\_cli} could then be used to interact with \texttt{wpa\_supplicant} and force the supplicant to roam to a new access point.
 
-Unfortunately however, during testing we could not get the fast transition to occur. As can be seen in appendix \ref{sec:testing-output;sub:80211r}, the line \texttt{FT: Invalid group cipher (0)} which translates as the program receiving \texttt{WPA_CIPHER_NONE}. This state should not be reachable with the given configuration (it should be either \texttt{WPA_CIPHER_CCMP} or \texttt{WPA_CIPHER_TKIP} at this stage) and was possibly caused by bugs introduced by the bleeding-edge software used - regrettably there was not enough time remaining at this stage of the project to determine and fix the root cause.
+Unfortunately however, during testing we could not get the fast transition to occur. As can be seen in appendix \ref{sec:testing-output;sub:80211r}, the line \texttt{FT: Invalid group cipher (0)} which translates as the program receiving \texttt{WPA\_CIPHER\_NONE}. This state should not be reachable with the given configuration (it should be either \texttt{WPA\_CIPHER\_CCMP} or \texttt{WPA\_CIPHER\_TKIP} at this stage) and was possibly caused by bugs introduced by the bleeding-edge software used - regrettably there was not enough time remaining at this stage of the project to determine and fix the root cause.
 
 \newpage
 \section{Evaluation}

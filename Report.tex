@@ -138,7 +138,11 @@ While this is, of course, desirable for any mobile network it is particularly im
 \section{Evaluation}
 
 \subsection{Testing}
-Each of the implemented sections were tested incrementally, using a command line tool bundled with \texttt{wpa\_supplicant} called \texttt{eapol\_test}. This allows simulated EAP messages to be sent to a server, based on settings in a configuration file (specifying the EAP method, username, password, etc.) and the responses to be examined in detail. The output from testing the server can be seen in appendix \ref{sec:testing-output;sub:simulation}.
+Each of the implemented sections were tested incrementally, using a command line tool bundled with \texttt{wpa\_supplicant} called \texttt{eapol\_test}. This allows simulated EAP messages to be sent to a server, based on settings in a configuration file (specifying the EAP method, username, password, etc.) and the responses to be examined in detail. 
+
+The output from testing the server (and the simulated authenticator and supplicant) can be seen in appendix \ref{sec:testing-output;sub:simulation} - the server is shown on the left (in debug mode, to produce the most detailed output) and the \texttt{eapol\_test} on the right. 
+
+Once the authenticator and supplicant were implemented fully, these were also tested (and debugged as necessary) with \texttt{eapol\_test}, They were then run in a live environment - the output is shown in appendix \ref{sec:testing-output;sub:supplicant}.
 
 \subsection{Conclusions}
 Overall, the project was a resounding success. We managed to implement not only a simulated authentication service, but a live demonstration with multiple hardware components. Although the 802.11r component was not fully implemented, the research into the protocol raised some interesting ideas for future work.
@@ -271,6 +275,7 @@ network={
 \end{figure}
 
 \subsection{wpa\_supplicant output}
+\label{sec:testing-output;sub:supplicant}
 \begin{figure}[h!]
 \begin{Verbatim}[frame=single]
 <3>SME: Trying to authenticate with 00:18:0a:01:3f:38
@@ -309,6 +314,7 @@ OK
 \end{figure}
 
 \subsection{802.11r output}
+\label{sec:testing-output;sub:80211r}
 \begin{figure}[h!]
 \begin{Verbatim}[frame=single]
 wlan0: Trying to associate with 00:18:0a:01:3f:38

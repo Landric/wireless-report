@@ -115,7 +115,7 @@ We received on loan from the Southampton University Wireless Society (SUWS)\foot
 \caption{A Meraki Mini access point, similar to the ones used in this project \cite{imagemeraki}}
 \end{figure}
 
-However, instead of running the default Meraki firmware, the nodes were re-flashed to use \texttt{OpenWrt}\footnote{https://openwrt.org/}, a distribution of Linux, designed for use on embedded devices (these nodes were purchased before Meraki changed their EULA to prohibit such). This was used to build and run \texttt{hostapd} authenticator software (which runs in user space, in the background).
+However, instead of running the default Meraki firmware, the nodes were re-flashed to use \texttt{OpenWrt}\footnote{https://openwrt.org/}, a distribution of Linux, designed for use on embedded devices (these nodes were purchased before Meraki changed their EULA to prohibit such). This was used to build and run \texttt{hostapd} authenticator software\footnote{http://w1.fi/} which runs in user space, in the background, relaying messages from supplicant to server.
 
 \subsubsection{Client}
 \label{sec:implementation;sub:components;sub:client}

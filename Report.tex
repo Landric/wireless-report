@@ -102,7 +102,7 @@ Implementing (as well as debugging and testing) the authentication server made u
 
 While there are many variants of RADIUS software, we chose \texttt{freeradius} due to its open-source nature and popularity, making it ideal for use in this project. The decision was made to install a RPM package that had been pre-built in a controlled environment.
 
-The next stage was to generate the necessary certificates that are used to identify the server. These can be edited and made from within \texttt{raddb/certs/}. Next, the configuration files must be updated with the appropriate system details. The essential items of configuration are determining the credentials of the users who will be accessing the system, and the clients they will use. Example code from these key files can be found in appendix \ref{sec:Code;sub:radius}.
+The next stage was to generate the necessary certificates that are used to identify the server (using EAP-TTLS). These can be edited and made from within \texttt{raddb/certs/}. Next, the configuration files must be updated with the appropriate system details. The essential items of configuration are determining the credentials of the users who will be accessing the system, and the clients they will use. Example code from these key files can be found in appendix \ref{sec:Code;sub:radius}.
 
 \subsubsection{Access point}
 \label{sec:implementation;sub:components;sub:accesspoint}

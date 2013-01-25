@@ -84,7 +84,7 @@ The authenticator is usually a network switch or, in the case of wireless networ
 The supplicant can refer to both the client device wishing to be authenticated and to the software running on the client that actually provides it's authentication details to the authenticator.
 
 \subsection{EAP}
-802.1X also defines the use of Extensible Authentication Protocol (a framework for authentication communication via networks, defined in RFC 3748\footnote{http://www.ietf.org/rfc/rfc3748.txt}) over IEEE802 local area networks, or EAPOL. EAPOL is used to encapsulate EAP messages sent between the supplicant and authenticator.
+802.1X also defines the use of Extensible Authentication Protocol (a framework for authentication communication via networks, defined in RFC 3748\footnote{http://www.ietf.org/rfc/rfc3748.txt}) over local area networks (EAPOL). EAPOL is used to encapsulate EAP messages sent between the supplicant and authenticator.
 
 EAP-Tunnelled Transport Layer Security (EAP-TTLS) is an EAP method that provides a degree of privacy and security for the client. The client first verifies the identity of the server using a PKI certificate (and, optionally, vice versa) and then establishes a secure tunnel between themselves and the authenticator using ``anonymous'' credentials. They can then send their actual credentials privately and securely through the tunnel.
 
@@ -102,9 +102,9 @@ The next stage was to implement the supplicant and authenticator in reality (see
 \label{sec:implementation;sub:components;sub:server}
 Implementing (as well as debugging and testing) the authentication server made up the bulk of this author's individual contribution. The consisted of researching the appropriate server-side software, installing it on a virtual machine hosted by ECS and configuring it correctly. 
 
-While there are many variants of RADIUS software, we chose \texttt{freeradius} due to its open-source nature and popularity, making it ideal for use in this project. The decision was made to install a RPM package that had been pre-built in a controlled environment.
+While there are many variants of RADIUS software, we chose \texttt{freeradius} due to its open-source nature and popularity, making it ideal for use in this project. The decision was made to install an RPM package that had been pre-built in a controlled environment.
 
-Next, the configuration files must be updated with the appropriate system details. The essential items of configuration are determining the credentials of the users who will be accessing the system (their username, password and, crucially, whether they should be allowed or rejected), and the clients they will use (the IP address for example). In this case a user \texttt{TomB} was set to be authorised when using the password \texttt{TomBsPassword}. A second user, \texttt{TomG} was set to be always refused access (to demonstrate revoked credentials - see section \ref{sec:evaluation;sub:testing}). The next stage was to generate the necessary certificates that were used to identify the server (using EAP-TTLS). These were edited and made from within \texttt{raddb/certs/}. Finally, the appropriate EAP method needed to be configured, and pointed towards the generated certificates.
+Next, the configuration files were updated with the appropriate system details. The essential items of configuration determine the credentials of the users who will be accessing the system (their username, password and, crucially, whether they should be allowed or rejected), and the information concerning the clients they will use (the IP address for example). In this case a user \texttt{TomB} was set to be authorised when using the password \texttt{TomBsPassword}. A second user, \texttt{TomG} was set to be always refused access (to demonstrate revoked credentials - see section \ref{sec:evaluation;sub:testing}). The next stage was to generate the necessary certificates that were used to identify the server (using EAP-TTLS). These were edited and made from within \texttt{raddb/certs/}. Finally, the appropriate EAP method needed to be configured, and pointed towards the generated certificates.
 
 Example code from these key files can be found in appendix \ref{sec:Code;sub:radius}.
 
@@ -117,7 +117,7 @@ We received on loan from the Southampton University Wireless Society (SUWS)\foot
 \caption{A Meraki Mini access point, similar to the ones used in this project \cite{imagemeraki}}
 \end{figure}
 
-However, instead of running the default Meraki firmware, the nodes were re-flashed to use \texttt{OpenWrt}\footnote{https://openwrt.org/}, a distribution of Linux, designed for use on embedded devices (these nodes were purchased before Meraki changed their EULA to prohibit such). This was used to build and run \texttt{hostapd} authenticator software\footnote{http://w1.fi/} which runs in user space, in the background, relaying messages from supplicant to server.
+However, instead of running the default Meraki firmware, the nodes were re-flashed to use \texttt{OpenWrt}\footnote{https://openwrt.org/}, a distribution of Linux, designed for use on embedded devices (these nodes were purchased before Meraki changed their EULA in 2008). This was used to build and run \texttt{hostapd} authenticator software\footnote{http://w1.fi/} which runs in user space, in the background, relaying messages from supplicant to server.
 
 \subsubsection{Client}
 \label{sec:implementation;sub:components;sub:client}
